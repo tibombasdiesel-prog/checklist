@@ -4,9 +4,10 @@
     "dev": "npm --prefix code run dev",
     "dev:client": "npm --prefix code run dev:client",
     "dev:server": "npm --prefix code run dev:server",
-    "build": "npm --prefix code run build",
-    "build:client": "npm --prefix code run build:client",
-    "build:server": "npm --prefix code run build:server",
+    "build": "npm --prefix code install && npm --prefix code run build",
+    "build:client": "npm --prefix code install && npm --prefix code run build:client",
+    "build:server": "npm --prefix code install && npm --prefix code run build:server",
+    "start": "node code/dist-server/server.js",
     "deploy:hosting": "npm run build:client && npx firebase-tools deploy --only hosting",
     "deploy:all": "npm run build && npx firebase-tools deploy --only hosting"
   },

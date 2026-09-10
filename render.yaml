@@ -4,14 +4,11 @@ services:
     runtime: node
     region: oregon
     plan: free
-    rootDir: code
-    buildCommand: npm install && npm run build:server
-    startCommand: node dist-server/server.js
+    buildCommand: npm run build:server
+    startCommand: node code/dist-server/server.js
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3001
       - key: DATABASE_URL
         sync: false
       - key: DATABASE_AUTH_TOKEN
