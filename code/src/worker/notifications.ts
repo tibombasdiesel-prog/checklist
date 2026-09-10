@@ -9,7 +9,11 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 // Auth middleware
 const authMiddleware = async (c: any, next: any) => {
-  const token = getCookie(c, SESSION_COOKIE_NAME);
+  let token = getCookie(c, SESSION_COOKIE_NAME);
+  const authHeader = c.req.header("Authorization");
+  if (!token && authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.substring(7);
+  }
   
   if (!token) {
     return c.json({ error: "Unauthorized" }, 401);

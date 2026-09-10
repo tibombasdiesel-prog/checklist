@@ -47,6 +47,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data: AuthResponse = await response.json();
     
     if (data.success && data.user) {
+      if (data.token) {
+        localStorage.setItem("checklist_token", data.token);
+      }
       setUser(data.user);
     }
 
@@ -64,6 +67,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const data: AuthResponse = await response.json();
     
     if (data.success && data.user) {
+      if (data.token) {
+        localStorage.setItem("checklist_token", data.token);
+      }
       setUser(data.user);
     }
 
@@ -71,10 +77,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await fetch("/api/auth/logout", { 
-      method: "POST",
-      credentials: 'include',
-    });
+    try {
+      await fetch("/api/auth/logout", { 
+        method: "POST",
+        credentials: 'include',
+      });
+    } catch {
+      // Ignore network errors on logout
+    }
+    localStorage.removeItem("checklist_token");
     setUser(null);
   };
 

@@ -203,7 +203,11 @@ app.post("/api/auth/login", async (c) => {
 // Get current user
 app.get("/api/auth/me", async (c) => {
   try {
-    const token = getCookie(c, SESSION_COOKIE_NAME);
+    let token = getCookie(c, SESSION_COOKIE_NAME);
+    const authHeader = c.req.header("Authorization");
+    if (!token && authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.substring(7);
+    }
     
     if (!token) {
       return c.json<AuthResponse>({ 
