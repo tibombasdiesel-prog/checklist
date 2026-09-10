@@ -8,7 +8,7 @@ const SESSION_COOKIE_NAME = "checklist_session";
 const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 // Middleware to verify authentication
-app.use("/api/fleet-checklists*", async (c, next) => {
+app.use("*", async (c, next) => {
   let token = getCookie(c, SESSION_COOKIE_NAME);
   const authHeader = c.req.header("Authorization");
   if (!token && authHeader && authHeader.startsWith("Bearer ")) {
