@@ -1,0 +1,34 @@
+# Dependências
+node_modules/
+
+# Builds (gerados pelo CI/CD)
+code/dist/
+code/dist-server/
+
+# Arquivos de ambiente (nunca commitar)
+.env
+code/.env
+code/.env.local
+# .env.production É commitado (só tem VITE_API_URL, sem segredos)
+
+# Firebase
+.firebase/
+.firebaserc.backup
+
+# Logs
+*.log
+npm-debug.log*
+
+# Storage local de desenvolvimento
+code/local-storage/
+
+# SQLite local
+code/src/*.db
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

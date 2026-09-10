@@ -1,0 +1,37 @@
+{
+  "name": "Checklist Bombas Diesel",
+  "short_name": "Bombas Diesel",
+  "description": "Sistema profissional de checklist de veículos",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://019b37e1-0891-7217-b9d1-2a65e831db7a.mochausercontent.com/logo-bombas-diesel-light.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://019b37e1-0891-7217-b9d1-2a65e831db7a.mochausercontent.com/logo-bombas-diesel-light.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://019b37e1-0891-7217-b9d1-2a65e831db7a.mochausercontent.com/logo-bombas-diesel-light.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}

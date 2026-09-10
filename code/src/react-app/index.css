@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* iOS safe areas */
+.safe-area-inset-top { padding-top: env(safe-area-inset-top); }
+.safe-area-inset-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-area-top { padding-top: max(1rem, env(safe-area-inset-top)); }
+.safe-area-page { padding-top: max(1rem, env(safe-area-inset-top)); }
+
+/* Smooth scrolling for iOS */
+html { -webkit-overflow-scrolling: touch; }
+
+/* Prevent pull-to-refresh on iOS PWA */
+body { overscroll-behavior-y: none; }
+
+/* Touch optimization */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
