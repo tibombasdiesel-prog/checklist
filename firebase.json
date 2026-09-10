@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "checklist-bombas-diesel-d6643",
     "public": "code/dist",
     "ignore": [
       "firebase.json",

@@ -17,8 +17,8 @@ export class CloudinaryStorageWrapper {
     }
 
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "dhwusdhpg";
-    const apiKey = process.env.CLOUDINARY_API_KEY;
-    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    const apiKey = process.env.CLOUDINARY_API_KEY || "571685273964331";
+    const apiSecret = process.env.CLOUDINARY_API_SECRET || "niGhjxoFf0KLOTLgf1UNrp0Fq5Q";
 
     if (cloudName && apiKey && apiSecret) {
       cloudinary.config({

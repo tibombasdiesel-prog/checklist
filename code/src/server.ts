@@ -32,7 +32,9 @@ app.use(
 const databaseUrl =
   process.env.DATABASE_URL ||
   "libsql://checklist-brenobispobd.aws-ap-south-1.turso.io";
-const databaseAuthToken = process.env.DATABASE_AUTH_TOKEN || "";
+const databaseAuthToken =
+  process.env.DATABASE_AUTH_TOKEN ||
+  "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3ODkwNDE3NjcsImlkIjoiMDFhMDhiMzItMTUwMS03ZjlhLWI3NjYtZThiM2FmMGNkZDNjIiwia2lkIjoidW5KcEFTa2JnRnlaNkpuR293dlJqUm02amlxZXZ0aE5QZDNyZk81NDFTcyIsInJpZCI6ImFiYjQ5M2E1LThhY2UtNGQ3NS04YjlmLTYzMmU2NTFkZmMyOSJ9.vdvDOOT-gR6XyFkV7aEtCtMNzZkgb-Qx-Cr-nUSAg480ruRYKDKUXcb6TQ2lDC28e_24JqmFITb8MFrQKK1QAg";
 
 console.log(`[Database] Conectando a: ${databaseUrl}`);
 

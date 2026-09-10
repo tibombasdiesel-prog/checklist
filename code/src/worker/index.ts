@@ -26,4 +26,9 @@ app.route("/", fleetChecklists);
 // Mount vehicle routes
 app.route("/api/vehicles", vehicles);
 
+app.onError((err, c) => {
+  console.error("[ServerError]", err);
+  return c.json({ success: false, error: err.message || "Erro no servidor" }, 500);
+});
+
 export default app;
