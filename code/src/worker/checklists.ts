@@ -498,7 +498,7 @@ app.delete("/api/checklists/:id", async (c) => {
 
     // Only admins can delete checklists
     if (!isAdmin) {
-      return c.json({ error: "Unauthorized - Admin access required" }, 403);
+      return c.json({ error: "Unauthorized - Admin access required", debug: { userId, isAdmin, cUserId: c.get("userId"), cIsAdmin: c.get("isAdmin") } }, 403);
     }
 
     // Verify checklist exists
