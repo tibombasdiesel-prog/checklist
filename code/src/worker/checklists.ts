@@ -483,8 +483,18 @@ app.get("/api/checklists/:id", async (c) => {
 // Delete a checklist (admin only)
 app.delete("/api/checklists/:id", async (c) => {
   try {
-    const isAdmin = c.get("isAdmin");
+    const userId = c.get("userId");
+    let isAdmin = c.get("isAdmin");
     const checklistId = parseInt(c.req.param("id"));
+
+    if (!isAdmin && userId) {
+      const user = await c.env.DB.prepare(
+        "SELECT is_admin, role FROM users WHERE id = ?"
+      ).bind(userId).first<{ is_admin: number | boolean; role: string }>();
+      if (user && (user.is_admin === 1 || user.is_admin === true || user.role === "admin")) {
+        isAdmin = true;
+      }
+    }
 
     // Only admins can delete checklists
     if (!isAdmin) {
@@ -523,20 +533,21 @@ app.delete("/api/checklists/:id", async (c) => {
       r2Keys.push(checklist.collaborator_signature_key);
     }
 
-    // Delete files from R2
+    // Delete files from storage
     await Promise.all(
-      r2Keys.map(key => c.env.R2_BUCKET.delete(key))
+      r2Keys.filter(Boolean).map(key => c.env.R2_BUCKET.delete(key).catch(() => {}))
     );
 
-    // Delete from database
+    // Delete from database (including notifications to prevent FK errors)
+    await c.env.DB.prepare("DELETE FROM notifications WHERE checklist_id = ?").bind(checklistId).run().catch(() => {});
     await c.env.DB.prepare("DELETE FROM checklist_photos WHERE checklist_id = ?").bind(checklistId).run();
     await c.env.DB.prepare("DELETE FROM checklist_videos WHERE checklist_id = ?").bind(checklistId).run();
     await c.env.DB.prepare("DELETE FROM checklists WHERE id = ?").bind(checklistId).run();
 
     return c.json({ message: "Checklist deleted successfully" });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error deleting checklist:", error);
-    return c.json({ error: "Failed to delete checklist" }, 500);
+    return c.json({ error: error?.message || "Failed to delete checklist" }, 500);
   }
 });
 
