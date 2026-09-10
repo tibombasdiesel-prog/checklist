@@ -191,11 +191,11 @@ app.post("/api/auth/login", async (c) => {
       user: userWithoutPassword,
       token,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Login error:", error);
     return c.json<AuthResponse>({ 
       success: false, 
-      error: "Erro no servidor" 
+      error: error?.message || "Erro no servidor" 
     }, 500);
   }
 });
