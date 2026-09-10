@@ -9,15 +9,18 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-let databaseUrl =
-  process.env.DATABASE_URL ||
-  "https://checklist-brenobispobd.aws-ap-south-1.turso.io";
+const defaultUrl = "https://checklist-brenobispobd.aws-ap-south-1.turso.io";
+const defaultToken =
+  "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3ODkwNDE3NjcsImlkIjoiMDFhMDhiMzItMTUwMS03ZjlhLWI3NjYtZThiM2FmMGNkZDNjIiwia2lkIjoidW5KcEFTa2JnRnlaNkpuR293dlJqUm02amlxZXZ0aE5QZDNyZk81NDFTcyIsInJpZCI6ImFiYjQ5M2E1LThhY2UtNGQ3NS04YjlmLTYzMmU2NTFkZmMyOSJ9.vdvDOOT-gR6XyFkV7aEtCtMNzZkgb-Qx-Cr-nUSAg480ruRYKDKUXcb6TQ2lDC28e_24JqmFITb8MFrQKK1QAg";
+
+let databaseUrl = (process.env.DATABASE_URL || defaultUrl).trim();
 if (databaseUrl.startsWith("libsql://")) {
   databaseUrl = databaseUrl.replace("libsql://", "https://");
 }
-const databaseAuthToken =
-  process.env.DATABASE_AUTH_TOKEN ||
-  "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3ODkwNDE3NjcsImlkIjoiMDFhMDhiMzItMTUwMS03ZjlhLWI3NjYtZThiM2FmMGNkZDNjIiwia2lkIjoidW5KcEFTa2JnRnlaNkpuR293dlJqUm02amlxZXZ0aE5QZDNyZk81NDFTcyIsInJpZCI6ImFiYjQ5M2E1LThhY2UtNGQ3NS04YjlmLTYzMmU2NTFkZmMyOSJ9.vdvDOOT-gR6XyFkV7aEtCtMNzZkgb-Qx-Cr-nUSAg480ruRYKDKUXcb6TQ2lDC28e_24JqmFITb8MFrQKK1QAg";
+let databaseAuthToken = (process.env.DATABASE_AUTH_TOKEN || "").trim();
+if (!databaseAuthToken || !databaseAuthToken.startsWith("eyJ")) {
+  databaseAuthToken = defaultToken;
+}
 
 console.log(`[Database] Conectando a: ${databaseUrl}`);
 
