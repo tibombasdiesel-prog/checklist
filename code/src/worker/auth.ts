@@ -193,10 +193,9 @@ app.post("/api/auth/login", async (c) => {
     });
   } catch (error: any) {
     console.error("Login error:", error);
-    const errorMsg = error instanceof Error ? (error.stack || error.message) : JSON.stringify(error);
     return c.json<AuthResponse>({ 
       success: false, 
-      error: errorMsg || "Erro no servidor" 
+      error: error?.message || "Erro no servidor" 
     }, 500);
   }
 });
